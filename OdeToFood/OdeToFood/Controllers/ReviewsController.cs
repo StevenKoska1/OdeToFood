@@ -15,7 +15,16 @@ namespace OdeToFood.Controllers
             var model = from r in _reviews
                         orderby r.Country
                         select r;
-            return View();
+            return View(model);
+        }
+
+        public ActionResult BestReview()
+        {
+            var best = from r in _reviews
+                       orderby r.Rating descending
+                       select r;
+
+            return PartialView("_Review", best.First());
         }
 
         // GET: Reviews/Details/5
