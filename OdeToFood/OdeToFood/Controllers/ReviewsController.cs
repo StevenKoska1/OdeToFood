@@ -9,13 +9,16 @@ namespace OdeToFood.Controllers
 {
     public class ReviewsController : Controller
     {
+
+        
         // GET: Reviews
-        public ActionResult Index()
+        public ActionResult Index([Bind(Prefix ="id")] int restaurantId)
         {
-            var model = from r in _reviews
-                        orderby r.Country
-                        select r;
-            return View(model);
+            var restaurant = _db.Restaurants.Find(restaurantId);
+            if (restaurant != null)
+            {
+                return View(model);
+            }
         }
 
         public ActionResult BestReview()
